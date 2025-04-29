@@ -33,11 +33,21 @@ function displayCities() {
     cityDiv.classList.add('city-card', weather.getCondition());
 
     cityDiv.innerHTML = `
-  <span class="city-name">${weather.getCity()}</span><br>
-  <small>${weather.getCondition()}</small>
-`;
-
+      <button class="remove-btn" data-index="${i}">&times;</button>
+      <span class="city-name">${weather.getCity()}</span><br>
+      <small>${weather.getCondition()}</small>
+    `;
 
     cityList.appendChild(cityDiv);
   }
+
+  // Add event listeners for remove buttons
+  const removeButtons = document.querySelectorAll('.remove-btn');
+  removeButtons.forEach(button => {
+    button.addEventListener('click', (e) => {
+      const index = e.target.getAttribute('data-index');
+      weatherSet.weatherReports.splice(index, 1);
+      displayCities();
+    });
+  });
 }
